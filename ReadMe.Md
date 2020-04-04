@@ -12,3 +12,5 @@
  - seoShopSolution.Utilities   -- tiện ích
  - seoShopSolution.ViewModel
  - seoShopSolution.Data         -- kết nối database, migration
+
+ 2. tắt mở lại studio add source controll vào git
