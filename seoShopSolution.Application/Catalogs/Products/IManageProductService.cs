@@ -1,4 +1,5 @@
-﻿using seoShopSolution.ViewModel.Catalogs.Products;
+﻿using seoShopSolution.ViewModel.Catalogs.ProductImage;
+using seoShopSolution.ViewModel.Catalogs.Products;
 using seoShopSolution.ViewModel.Common;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,15 @@ namespace seoShopSolution.Application.Catalogs.Products
         Task AddViewCount(int productId);
         Task<PagedResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request);
         Task<ProductViewModel> GetById(int productId, string languageId);
+
+        //manager image
+        Task<int> AddImages(int productId, ProductImageCreateRequest productImage);
+
+        Task<int> RemoveImages(int imageId);
+
+        Task<int> UpdateImage(int imageId, ProductImageUpdateRequest productImage);
+
+        Task<List<ProductImageViewModel>> GetListImage(int productId);
+        Task<ProductImageViewModel> GetImageById(int imageId);
     }
 }

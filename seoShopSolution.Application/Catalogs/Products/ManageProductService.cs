@@ -4,6 +4,7 @@ using seoShopSolution.Application.Common;
 using seoShopSolution.Data.EF;
 using seoShopSolution.Data.Entities;
 using seoShopSolution.Utilities.Exceptions;
+using seoShopSolution.ViewModel.Catalogs.ProductImage;
 using seoShopSolution.ViewModel.Catalogs.Products;
 using seoShopSolution.ViewModel.Common;
 using System;
@@ -214,5 +215,89 @@ namespace seoShopSolution.Application.Catalogs.Products
             await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
             return fileName;
         }
+
+        #region productImage Servie
+
+        public async Task<List<ProductImageViewModel>> GetListImage(int productId)
+        {
+            var listImage = await _context.ProductImages.Where(x => x.ProductId == productId).Select(i => new ProductImageViewModel
+            {
+                Caption = i.Caption,
+                DateCreated = i.DateCreated,
+                FileSize = i.FileSize,
+                Id = i.Id,
+                ImagePath = i.ImagePath,
+                IsDefault = i.IsDefault,
+                ProductId = i.ProductId,
+                SortOrder = i.SortOrder
+            }).ToListAsync();
+            return listImage;
+        }
+
+        public async Task<ProductImageViewModel> GetImageById(int imageId)
+        {
+            var image = await _context.ProductImages.FindAsync(imageId);
+            if (image == null)
+                throw new seoShopSolutionExceptions($"Cannot fint an image whit id {imageId}");
+            var viewModel = new ProductImageViewModel()
+            {
+                Caption = image.Caption,
+                DateCreated = image.DateCreated,
+                FileSize = image.FileSize,
+                Id = image.Id,
+                ImagePath = image.ImagePath,
+                IsDefault = image.IsDefault,
+                ProductId = image.ProductId,
+                SortOrder = image.SortOrder
+            };
+            return viewModel;
+        }
+
+        public async Task<int> AddImages(int productId, ProductImageCreateRequest request)
+        {
+            var productImage = new ProductImage()
+            {
+                Caption = request.Caption,
+                DateCreated = DateTime.Now,
+                IsDefault = request.IsDefault,
+                ProductId = productId,
+                SortOrder = request.SortOrder
+            };
+            if (request.imageFile != null)
+            {
+                productImage.ImagePath = await this.SaveFile(request.imageFile);
+                productImage.FileSize = request.imageFile.Length;
+            }
+            _context.ProductImages.Add(productImage);
+            await _context.SaveChangesAsync();
+            return productImage.Id;
+        }
+
+        public async Task<int> UpdateImage(int imageId, ProductImageUpdateRequest request)
+        {
+            var productImage = await _context.ProductImages.FindAsync(imageId);
+            if (productImage == null)
+                throw new seoShopSolutionExceptions($"Cannot fint an image whit id {imageId}");
+
+
+            if (request.imageFile != null)
+            {
+                productImage.ImagePath = await this.SaveFile(request.imageFile);
+                productImage.FileSize = request.imageFile.Length;
+            }
+            _context.ProductImages.Update(productImage);
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> RemoveImages(int imageId)
+        {
+            var productImage = await _context.ProductImages.FindAsync(imageId);
+            if (productImage == null)
+                throw new seoShopSolutionExceptions($"Cannot fint an image whit id {imageId}");
+            _context.ProductImages.Remove(productImage);
+            return await _context.SaveChangesAsync();
+        }
+
+        #endregion productImage Servie
     }
 }
