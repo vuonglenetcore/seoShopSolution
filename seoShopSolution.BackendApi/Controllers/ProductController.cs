@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using seoShopSolution.Application.Catalogs.Products;
+using seoShopSolution.ViewModel.Catalogs.ProductImage;
 using seoShopSolution.ViewModel.Catalogs.Products;
 using System.Threading.Tasks;
 
@@ -82,5 +83,62 @@ namespace seoShopSolution.BackendApi.Controllers
                 return Ok();
             return BadRequest();
         }
+
+        #region IMAGE
+
+        [HttpGet("{productId}/images/{imageId}")]
+        public async Task<IActionResult> GetImageById(int productId, int imageId)
+        {
+            var image = await _manageProductService.GetImageById(imageId);
+            if (image == null)
+                return BadRequest("Cannot find product");
+            return Ok(image);
+        }
+
+        [HttpPost("{productId}/images")]
+        public async Task<IActionResult> CreateImage(int productId, [FromForm]ProductImageCreateRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var imageId = await _manageProductService.AddImages(productId, request);
+            if (productId == 0)
+                return BadRequest();
+
+            var image = await _manageProductService.GetImageById(imageId);
+
+            return CreatedAtAction(nameof(GetImageById), new { id = imageId }, image);
+        }
+
+        [HttpPut("images/{imageId}")]
+        public async Task<IActionResult> UpdateImage(int imageId, [FromForm]ProductImageUpdateRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _manageProductService.UpdateImage(imageId, request);
+            if (result == 0)
+                return BadRequest();
+
+            return Ok();
+        }
+
+        [HttpDelete("images/{imageId}")]
+        public async Task<IActionResult> RemoveImage(int imageId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _manageProductService.RemoveImages(imageId);
+            if (result == 0)
+                return BadRequest();
+
+            return Ok();
+        }
+
+        #endregion IMAGE
     }
 }

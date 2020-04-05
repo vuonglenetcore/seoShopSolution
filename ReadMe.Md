@@ -122,3 +122,6 @@
 - app.UseSwagger();
 - app.UseSwaggerUI(...)
 3. Chỉ định "launchUrl": "swagger", trong Properties > launchSetting.json
+## Bài 5 api quản lý file ảnh
+1. viết các method servie quản lý ảnh, create, getlistimg, update, remove...
+2. viết api quản lý image
