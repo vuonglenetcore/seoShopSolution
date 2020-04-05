@@ -4,7 +4,7 @@
 - Entity Framework Core 3.1
 
 ##################
-##Bài 3. Tạo solution
+##Bài 1. Tạo solution
 1. tạo solution trống
  - seoShopSolution.BackendApi
  - seoShopSolution.WebApp
@@ -71,3 +71,54 @@
 6. migration database:
 - add-migration database
 - update-database
+
+##Bài 2. viết các phương thức service trong application
+1. Viết các interface 
+2. các class viewModel dùng cho get, create, update...
+3. imlement interface triển khai các nghiệp vụ service 
+- DI DbContext trong class service
+
+----note------------------SERVICE ghi file
+    copy theo : interface và class này:  FileStorageService : IStorageService
+    * phương thức webHostEnvironment.WebRootPath
+    cần khai báo: 
+                Microsoft.AspNetCore.Hosting
+                Microsoft.AspNetCore.Hosting.Abstractions
+                Microsoft.Extensions.Hosting
+    Nhấp dúp vào seoShopSolution.Application mở file seoShopSolution.Application.scproj
+    clear hết nội dung trong <ItemGroup> dâu tiên. thay lại như sau:
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>    
+    
+    trong wwwroot của backend api phải tạo thư mục user-content để chưa file
+---note----------------------------------
+
+##Bài 3. Viết controller api cho backendApi
+1. tao ex: productApi empty 
+2. copy chuổi connecstring vào appsettings.Development.json
+        "ConnectionStrings": {
+            "seoShopSolutionDb": "Server=DESKTOP-K9E5QJ9\\SQLEXPRESS;Database=SEOSHOP;Trusted_Connection=True;"
+          }
+3. cấu hình startUp.cs
++ tìm   public void ConfigureServices(IServiceCollection services){
+    //connect db
+    ...
+}
++ cấu hình connect db 
+     //tao ket noi db
+            services.AddDbContext<coreShopDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString(SystemContants.MainConnectionString)));
++ DI service
+        services.AddTransient<IPublicProductService, PublicProductService>();
+        services.AddTransient<IManageProductService, ManageProductService>();
+4. Viết phương thức trong controller api
+    
+##Bài 4 cài đặt AddSwagger hiển thị giao diện api
+1. install Swashbuckle.AspNet
+2. cấu hình trong startUp
+- hướng dẫn:  https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio
+- services.AddSwaggerGen(...)
+- app.UseSwagger();
+- app.UseSwaggerUI(...)
+3. Chỉ định "launchUrl": "swagger", trong Properties > launchSetting.json

@@ -1,7 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="System\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\seoShopSolution.Data\seoShopSolution.Data.csproj" />
+    <ProjectReference Include="..\seoShopSolution.Utilities\seoShopSolution.Utilities.csproj" />
+    <ProjectReference Include="..\seoShopSolution.ViewModel\seoShopSolution.ViewModel.csproj" />
+  </ItemGroup>
 
 </Project>
