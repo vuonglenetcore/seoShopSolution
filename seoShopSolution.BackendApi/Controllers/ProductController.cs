@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using seoShopSolution.Application.Catalogs.Products;
 using seoShopSolution.ViewModel.Catalogs.ProductImage;
 using seoShopSolution.ViewModel.Catalogs.Products;
@@ -8,6 +9,7 @@ namespace seoShopSolution.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IPublicProductService _publicProductService;
