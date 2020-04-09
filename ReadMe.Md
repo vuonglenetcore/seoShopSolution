@@ -125,3 +125,63 @@
 ## Bài 5 api quản lý file ảnh
 1. viết các method servie quản lý ảnh, create, getlistimg, update, remove...
 2. viết api quản lý image
+
+##Bài 6 thêm identity - api login, register
+1. Tạo bảng AppUser, AppRole
+- install Microsoft.AspNetCore.Identity
+- Thêm model entity AppUser, AppRole
+    public class AppUser : IdentityUser<Guid>
+    {
+        ...
+        thêm các thuộc tính tự định nghĩa
+        các khóa ngoại đến bảng có liên quan đến user
+    }
+    
+    public class AppRole : IdentityRole<Guid>
+    {
+        ...
+        thêm các thuộc tính tự định nghĩa
+        các khóa ngoại đến bảng có liên quan đến user
+    }
+- Configuration cho 2 bảng trên
+
+2. class DbContext kế thừa lại từ identity
+- public class coreShopDbContext :  IdentityDbContext<AppUser, AppRole, Guid>
+
+3. Cấu hình thuộc tính configuration cho 5 bảng mặc định trong identity ở class dbcontext dể 
+renradatabase(có thể tách ra như class khác)
+- 5 bảng sau
+    //config identity table
+            modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
+            modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
+            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
+
+            modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims");
+            modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
+
+            
+4. Add-migration update-database cho 2 bảng user và role
+
+5. Tạo UserService api . tạo trong thư mục System > Users dể quản lý
+- 2 phương thức service copy paste > install token
+
+6. qua benendApi add tokens vào appsetting.json
+        "Tokens": {
+            "Key": "0123456789ABCDEF",
+            "Issuer": "https://webapi.vuongle.com.vn"
+          }
+7. Cấu hình StartUp
+- trong void ConfigureServices khai báo identity
+services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<coreShopDbContext>().AddDefaultTokenProviders();
+-DI Service 
+            services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
+            services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
+            services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
+            services.AddTransient<IUserService, UserService>();
+
+
+8. UserController api
+- 2 phuong thuc login và register
+
+-> Kết thúc bài, dk thành công. đăng nhập trả về dc mã token
+

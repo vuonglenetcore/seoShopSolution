@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using seoShopSolution.Data.Configurations;
 using seoShopSolution.Data.Entities;
 using System;
@@ -7,7 +9,7 @@ using System.Text;
 
 namespace seoShopSolution.Data.EF
 {
-    public class seoShopSolutionDbContext : DbContext
+    public class seoShopSolutionDbContext : IdentityDbContext<AppUser, AppRole, Guid>
     {
         public seoShopSolutionDbContext(DbContextOptions options) : base(options)
         {
@@ -31,8 +33,18 @@ namespace seoShopSolution.Data.EF
             modelBuilder.ApplyConfiguration(new ProductTranslationConfiguration());
             modelBuilder.ApplyConfiguration(new PromotionConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
-
             modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
+            
+            modelBuilder.ApplyConfiguration(new AppUserConfiguration());
+            modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
+
+            //config identity table
+            modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
+            modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
+            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
+
+            modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims");
+            modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
 
             //config identity table
 
