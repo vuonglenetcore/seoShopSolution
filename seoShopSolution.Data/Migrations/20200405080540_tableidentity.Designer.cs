@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using seoShopSolution.Data.EF;
 
 namespace seoShopSolution.Data.Migrations
 {
     [DbContext(typeof(seoShopSolutionDbContext))]
-    partial class seoShopSolutionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200405080540_tableidentity")]
+    partial class tableidentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,9 +140,7 @@ namespace seoShopSolution.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -150,7 +150,7 @@ namespace seoShopSolution.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppRoles");
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("seoShopSolution.Data.Entities.AppUser", b =>
@@ -175,14 +175,10 @@ namespace seoShopSolution.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -216,7 +212,7 @@ namespace seoShopSolution.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppUsers");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("seoShopSolution.Data.Entities.Cart", b =>
@@ -399,7 +395,7 @@ namespace seoShopSolution.Data.Migrations
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 4, 5, 15, 35, 46, 27, DateTimeKind.Local).AddTicks(6053));
+                        .HasDefaultValue(new DateTime(2020, 4, 5, 15, 5, 40, 470, DateTimeKind.Local).AddTicks(8940));
 
                     b.Property<string>("ShipAddress")
                         .IsRequired()

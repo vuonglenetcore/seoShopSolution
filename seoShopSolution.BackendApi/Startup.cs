@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using seoShopSolution.Application.Catalogs.Products;
 using seoShopSolution.Application.Common;
+using seoShopSolution.Application.System.Users;
 using seoShopSolution.Data.EF;
+using seoShopSolution.Data.Entities;
 using seoShopSolution.Utilities.Contants;
 
 namespace seoShopSolution.BackendApi
@@ -32,10 +35,18 @@ namespace seoShopSolution.BackendApi
             //tao ket noi db
             services.AddDbContext<seoShopSolutionDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString(SystemContants.MainConnectionString)));
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<seoShopSolutionDbContext>().AddDefaultTokenProviders();
             //DI service
             services.AddTransient<IPublicProductService, PublicProductService>();
             services.AddTransient<IManageProductService, ManageProductService>();
             services.AddTransient<IStorageService, FileStorageService>();
+
+            services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
+            services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
+            services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
+            services.AddTransient<IUserService, UserService>();
+
+
             services.AddControllersWithViews();
 
             //Swagger
