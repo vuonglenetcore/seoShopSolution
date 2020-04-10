@@ -19,7 +19,7 @@ namespace seoShopSolution.Application.Catalogs.Products
         }
 
         public async Task<List<ProductViewModel>> GetAll()
-        {
+        {            
             var query = from p in _context.products
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId
                         join pic in _context.ProductInCategories on p.Id equals pic.ProductId

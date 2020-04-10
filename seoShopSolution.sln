@@ -8,17 +8,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		ReadMe.Md = ReadMe.Md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "seoShopSolution.Application", "seoShopSolution.Application\seoShopSolution.Application.csproj", "{4563B325-5BD6-49F5-976B-BB09FC792055}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "seoShopSolution.Application", "seoShopSolution.Application\seoShopSolution.Application.csproj", "{4563B325-5BD6-49F5-976B-BB09FC792055}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "seoShopSolution.Data", "seoShopSolution.Data\seoShopSolution.Data.csproj", "{5B32F742-435A-45AE-8871-AA4DDF9DA502}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "seoShopSolution.Data", "seoShopSolution.Data\seoShopSolution.Data.csproj", "{5B32F742-435A-45AE-8871-AA4DDF9DA502}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "seoShopSolution.WebApp", "seoShopSolution.WebApp\seoShopSolution.WebApp.csproj", "{2D8246B5-6315-4077-B2B7-DF21F571B581}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "seoShopSolution.WebApp", "seoShopSolution.WebApp\seoShopSolution.WebApp.csproj", "{2D8246B5-6315-4077-B2B7-DF21F571B581}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "seoShopSolution.ViewModel", "seoShopSolution.ViewModel\seoShopSolution.ViewModel.csproj", "{FEBA8D5E-3460-4220-AB67-43D07747BDA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "seoShopSolution.ViewModel", "seoShopSolution.ViewModel\seoShopSolution.ViewModel.csproj", "{FEBA8D5E-3460-4220-AB67-43D07747BDA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "seoShopSolution.Utilities", "seoShopSolution.Utilities\seoShopSolution.Utilities.csproj", "{5A04C9AB-D4A2-41A5-834C-6994A2831F39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "seoShopSolution.Utilities", "seoShopSolution.Utilities\seoShopSolution.Utilities.csproj", "{5A04C9AB-D4A2-41A5-834C-6994A2831F39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "seoShopSolution.BackendApi", "seoShopSolution.BackendApi\seoShopSolution.BackendApi.csproj", "{6B71CF81-D12E-4854-ADB2-DC72973BACA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "seoShopSolution.BackendApi", "seoShopSolution.BackendApi\seoShopSolution.BackendApi.csproj", "{6B71CF81-D12E-4854-ADB2-DC72973BACA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "seoShopSolution.AdminApp", "seoShopSolution.AdminApp\seoShopSolution.AdminApp.csproj", "{040B9627-F955-45FB-8891-42D008ED8675}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +52,10 @@ Global
 		{6B71CF81-D12E-4854-ADB2-DC72973BACA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B71CF81-D12E-4854-ADB2-DC72973BACA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B71CF81-D12E-4854-ADB2-DC72973BACA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{040B9627-F955-45FB-8891-42D008ED8675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{040B9627-F955-45FB-8891-42D008ED8675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{040B9627-F955-45FB-8891-42D008ED8675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{040B9627-F955-45FB-8891-42D008ED8675}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -234,3 +234,52 @@ get -> trả về 401
 get -> trả về 401
 -Đăng nhập đúng lấy mã token > button authorize > Bearer maToKen > click
 - get > trả về 200 get ra sản phẩm
+
+##Bài 8 Thêm template admin. đăng nhập hệ thống
+1. Tải template admin : https://startbootstrap.com/previews/sb-admin/
+2. Tạo coreShop.AdminApp
+- Gắn layout
+- Tạo action đăng nhập + gắn layout dang nhập
+- sửa form login
+3. install : Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
+4. cấu hình startUp
+https://docs.microsoft.com/en-us/aspnet/core/mvc/views/view-compilation?view=aspnetcore-3.1&viewFallbackFrom=asp.netcore-3.1
+- trong public void ConfigureServices(IServiceCollection services){...}
+- Thêm:
+        IMvcBuilder builder = services.AddRazorPages();
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+            #if DEBUG
+            if (environment == Environments.Development)
+            {
+                builder.AddRazorRuntimeCompilation();
+            }
+            #endif
+- Lấy web api là port 5001, web admin là port 5002
+
+5. triển khai service IUserApiClient <xem phương thức>
+ public IActionResult Login()
+        {
+            //await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginRequest request)
+        {
+            if (!ModelState.IsValid)
+                return View(ModelState);
+            var token = await _userApiClient.Authenticate(request);
+           
+
+            return View(token);
+        }
+6. khai báo DI service trong starUp
+-   services.AddHttpClient();
+    services.AddTransient<IUserApiClient, UserApiClient>();
+7. Triển khai phương thức controler gọi về web api 
+- *chú ý dùng [FormBody] đồng nhất với bên controlller của admin trả về api
+8. Coppy ma4 token trong appsetting cua api vao admin
+9. Chạy multi api . admin
+- đăng nhập lấy về dc token -->>>ok
+##chứng thực với cookies không dùng identity

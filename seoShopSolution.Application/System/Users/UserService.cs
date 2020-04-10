@@ -43,6 +43,7 @@ namespace seoShopSolution.Application.System.Users
             {
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.GivenName, user.FirstName),
+                new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(ClaimTypes.Role, string.Join(";",roles))
             };
 
@@ -58,7 +59,7 @@ namespace seoShopSolution.Application.System.Users
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public  async Task<bool> Register(RegisterRequest request)
+        public async Task<bool> Register(RegisterRequest request)
         {
             var user = new AppUser()
             {
